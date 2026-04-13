@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Free Tools Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+    }
+    h1 { margin-top: 20px; }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .tool {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    input, button {
+      margin: 5px;
+      padding: 10px;
+      width: 80%;
+    }
+    button {
+      background: #22c55e;
+      border: none;
+      cursor: pointer;
+      color: black;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>⚙️ Free Online Tools Hub</h1>
+
+<div class="container">
+
+<!-- PROFIT -->
+<div class="tool">
+  <h3>Profit Calculator</h3>
+  <input id="cost" placeholder="Cost">
+  <input id="price" placeholder="Price">
+  <button onclick="profit()">Calculate</button>
+  <p id="profitOut"></p>
+</div>
+
+<!-- ROI -->
+<div class="tool">
+  <h3>ROI Calculator</h3>
+  <input id="invest" placeholder="Investment">
+  <input id="return" placeholder="Return">
+  <button onclick="roi()">Calculate</button>
+  <p id="roiOut"></p>
+</div>
+
+<!-- ODDS -->
+<div class="tool">
+  <h3>Odds Simulator</h3>
+  <input id="chance" placeholder="Win %">
+  <button onclick="odds()">Roll</button>
+  <p id="oddsOut"></p>
+</div>
+
+<!-- RNG -->
+<div class="tool">
+  <h3>Random Number Generator</h3>
+  <input id="min" placeholder="Min">
+  <input id="max" placeholder="Max">
+  <button onclick="rng()">Generate</button>
+  <p id="rngOut"></p>
+</div>
+
+<!-- TIMER -->
+<div class="tool">
+  <h3>Event Timer (seconds)</h3>
+  <input id="time" placeholder="Seconds">
+  <button onclick="startTimer()">Start</button>
+  <p id="timerOut"></p>
+</div>
+
+<!-- DROP RATE -->
+<div class="tool">
+  <h3>Drop Rate Calculator</h3>
+  <input id="attempts" placeholder="Attempts">
+  <input id="drops" placeholder="Drops">
+  <button onclick="dropRate()">Calculate</button>
+  <p id="dropOut"></p>
+</div>
+
+<!-- PERCENT -->
+<div class="tool">
+  <h3>Percentage Calculator</h3>
+  <input id="part" placeholder="Part">
+  <input id="whole" placeholder="Whole">
+  <button onclick="percent()">Calculate</button>
+  <p id="percentOut"></p>
+</div>
+
+<!-- STATS -->
+<div class="tool">
+  <h3>Stat Tracker</h3>
+  <input id="values" placeholder="Enter numbers (comma)">
+  <button onclick="stats()">Analyze</button>
+  <p id="statsOut"></p>
+</div>
+
+</div>
+
+<script>
+function profit() {
+  let cost = +cost.value;
+  let price = +price.value;
+  profitOut.innerText = "Profit: $" + (price - cost);
+}
+
+function roi() {
+  let i = +invest.value;
+  let r = +return.value;
+  roiOut.innerText = "ROI: " + (((r - i) / i) * 100).toFixed(2) + "%";
+}
+
+function odds() {
+  let c = +chance.value;
+  oddsOut.innerText = (Math.random() * 100 <= c) ? "Win!" : "Lose!";
+}
+
+function rng() {
+  let minVal = +min.value;
+  let maxVal = +max.value;
+  rngOut.innerText = Math.floor(Math.random() * (maxVal - minVal + 1)) + minVal;
+}
+
+function startTimer() {
+  let t = +time.value;
+  let interval = setInterval(() => {
+    timerOut.innerText = t + "s";
+    t--;
+    if (t < 0) {
+      clearInterval(interval);
+      timerOut.innerText = "Done!";
+    }
+  }, 1000);
+}
+
+function dropRate() {
+  let a = +attempts.value;
+  let d = +drops.value;
+  dropOut.innerText = "Drop Rate: " + ((d / a) * 100).toFixed(2) + "%";
+}
+
+function percent() {
+  let p = +part.value;
+  let w = +whole.value;
+  percentOut.innerText = ((p / w) * 100).toFixed(2) + "%";
+}
+
+function stats() {
+  let arr = values.value.split(',').map(Number);
+  let sum = arr.reduce((a,b)=>a+b,0);
+  let avg = sum / arr.length;
+  statsOut.innerText = "Avg: " + avg.toFixed(2);
+}
+</script>
+
+</body>
+</html>
